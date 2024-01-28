@@ -182,15 +182,15 @@ func (co *Container) GetServiceAccountName(current string) string {
 // GetActiveDeadlineSeconds will return the active deadline seconds to be used for containers
 // that are deployed.
 // TODO pass PodSpec instead of returning the uint64?
-func (co *Container) GetActiveDeadlineSeconds() (int64, error) {
+func (co *Container) GetActiveDeadlineSeconds() (*int64, error) {
 	if adl, ok := co.Labels[LabelActiveDeadlineSeconds]; ok {
 		parsed, err := strconv.ParseInt(adl, 10, 64)
 		if err != nil {
-			return 0, fmt.Errorf("failed to parse %s to Int64", adl)
+			return nil, fmt.Errorf("failed to parse %s to Int64", adl)
 		}
-		return parsed, nil
+		return &parsed, nil
 	}
-	return 0, nil
+	return nil, nil
 
 }
 

@@ -92,8 +92,8 @@ func (in *instance) startContainer(tainr *types.Container) (DeployState, error) 
 	if err != nil {
 		return DeployFailed, err
 	}
-	if adl > 0 {
-		pod.Spec.ActiveDeadlineSeconds = &adl
+	if adl != nil {
+		pod.Spec.ActiveDeadlineSeconds = adl
 	}
 
 	seccontext, err := tainr.GetPodSecurityContext(pod.Spec.SecurityContext)
